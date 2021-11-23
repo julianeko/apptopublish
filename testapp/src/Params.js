@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import Input from "./Input.js";
 import styled from "styled-components";
 import { Context } from "./App";
 
