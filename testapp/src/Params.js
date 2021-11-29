@@ -22,7 +22,7 @@ function Params() {
       </div>
     );
   }
-  return null;
+  return <div>Element nicht gefunden</div>;
 }
 
 export default Params;

@@ -15,12 +15,7 @@ function Todo() {
   const value = useContext(Context);
   // const [todos, setTodos] = useState([]);
   let arr = value.todos.map((element) => (
-    <Onet
-      todo={element.name}
-      vid={element.id}
-      vdeleteItem={deleteItem}
-      key={element.id}
-    />
+    <Onet todo={element} vdeleteItem={deleteItem} key={element.id} />
   ));
   console.log(arr);
 

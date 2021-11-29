@@ -1,58 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaTrash } from "react-icons/fa";
 import { BiCheckbox, BiCheckboxChecked } from "react-icons/bi";
 import styled from "styled-components";
+import { Context } from "./App";
 
 import { Link } from "react-router-dom";
 
-function Onet({ todo, vid, vdeleteItem }) {
+function Onet({ todo, vdeleteItem }) {
   // console.log(params.onetId);
+  const { todos, setTodos } = useContext(Context);
 
   function onClick() {
-    vdeleteItem(vid);
-    console.log(vid);
+    vdeleteItem(todo.id);
+    console.log(todo.id);
   }
-
-  const [checked, setCheck] = useState(false);
   function changeF() {
-    if (checked === false) {
-      setCheck(true);
-      console.log("False");
-    } else if (checked === true) {
-      setCheck(false);
-      console.log("True");
-    }
+    // const [checked, setCheck] = useState(false);
+    todo.done = !todo.done;
+    setTodos([...todos]);
+    console.log(todos);
   }
+  // function changeF() {
+  //   if (checked === false) {
+  //     setCheck(true);
+  //     console.log("False");
+  //   } else if (checked === true) {
+  //     setCheck(false);
+  //     console.log("True");
+  //   }
+  // }
   let icon = <BiCheckbox />;
-  if (checked) {
+  if (todo.done) {
     icon = <BiCheckboxChecked />;
   } else {
     icon = <BiCheckbox />;
   }
-  useEffect(() => {
-    const storage = localStorage.getItem("checked");
-    if (storage) {
-      setCheck(JSON.parse(localStorage.getItem("checked")));
-    }
-  }, []);
-  useEffect(() => {
-    // Ausführung bei Änderung des todos-State ([todos])
+  // useEffect(() => {
+  //   const storage = localStorage.getItem("checked");
+  //   if (storage) {
+  //     setCheck(JSON.parse(localStorage.getItem("checked")));
+  //   }
+  // }, []);
+  // useEffect(() => {
+  //   // Ausführung bei Änderung des todos-State ([todos])
 
-    localStorage.setItem("checked", JSON.stringify(checked));
-  }, [checked]);
+  //   localStorage.setItem("checked", JSON.stringify(checked));
+  // }, [checked]);
 
   return (
     <ListenStyle>
       <TextStyle>
-        <StyleLink
-          to={"/onet/" + vid}
-          style={{
-            textDecoration: "none",
-            color: "white",
-          }}
-          activeStyle={{ color: "red" }}
-        >
-          {todo}
+        <StyleLink erledigt={todo.done} to={"/onet/" + todo.id}>
+          {todo.name}
         </StyleLink>
 
         <TextStyle2 className="ids">
@@ -70,12 +69,9 @@ function Onet({ todo, vid, vdeleteItem }) {
 
 export default Onet;
 const StyleLink = styled(Link)`
-  &:hover {
-    text-decoration: underline;
-  }
-  &.active {
-    color: red;
-  }
+  color: white;
+  text-decoration: ${(attribute) =>
+    attribute.erledigt ? "line-through" : "none"};
 `;
 const SymbolsBoth = styled.span`
   &:hover {

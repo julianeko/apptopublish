@@ -16,7 +16,7 @@ function Input() {
       // console.log(eingabeFeld.current.value);
 
       value.setTodos([
-        { id: uuidv4(), name: eingabeFeld.current.value },
+        { id: uuidv4(), name: eingabeFeld.current.value, done: false },
         ...value.todos,
       ]);
 
